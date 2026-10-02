@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WikiSprint — Wikipedia Speedrun</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="app">
+  <section id="home" class="screen">
+    <div class="hero">
+      <div class="eyebrow">WIKIPEDIA SPEEDRUN</div>
+      <h1>Wiki<span>Sprint</span></h1>
+      <p>Race your friends from one Wikipedia article to another.</p>
+      <div class="home-card">
+        <input id="nameInput" maxlength="18" placeholder="Your nickname">
+        <button id="createBtn" class="primary">Create room</button>
+        <div class="or">or</div>
+        <div class="join-row">
+          <input id="roomInput" maxlength="6" placeholder="ROOM CODE" autocomplete="off">
+          <button id="joinBtn">Join</button>
+        </div>
+        <p id="configStatus" class="hint">Free multiplayer is connected through Supabase Realtime.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="lobby" class="screen hidden">
+    <div class="topbar">
+      <div class="brand">WikiSprint</div>
+      <div class="room-pill">ROOM <b id="roomCodeLabel">------</b></div>
+    </div>
+    <div class="lobby-grid">
+      <div class="panel">
+        <div class="eyebrow">LOBBY</div>
+        <h2>Ready to race?</h2>
+        <p class="muted">Send the room code to your friends.</p>
+        <div id="players" class="players"></div>
+        <button id="startBtn" class="primary full hidden">Start race</button>
+        <p id="lobbyMessage" class="hint"></p>
+      </div>
+      <div class="panel rules">
+        <div class="eyebrow">RULES</div>
+        <h3>How it works</h3>
+        <ol>
+          <li>Everyone starts from the same Wikipedia article.</li>
+          <li>Use only links inside Wikipedia articles.</li>
+          <li>Reach the target article as fast as possible.</li>
+          <li>Come back here and submit your target URL.</li>
+        </ol>
+        <label>Race length
+          <select id="difficulty">
+            <option value="easy">Easy — 10 minutes</option>
+            <option value="normal" selected>Normal — 5 minutes</option>
+            <option value="hard">Hard — 3 minutes</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section id="race" class="screen hidden">
+    <div class="topbar">
+      <div class="brand">WikiSprint</div>
+      <div class="timer" id="timer">05:00</div>
+      <div class="room-pill">ROOM <b id="raceRoom"></b></div>
+    </div>
+    <div class="race-layout">
+      <aside class="panel race-info">
+        <div class="eyebrow">YOUR RACE</div>
+        <div class="target-label">GET TO</div>
+        <h2 id="targetTitle">Loading…</h2>
+        <a id="targetLink" target="_blank" rel="noopener">Open target</a>
+        <div class="divider"></div>
+        <div class="target-label">START AT</div>
+        <h3 id="startTitle">Loading…</h3>
+        <a id="startLink" target="_blank" rel="noopener">Open start article</a>
+        <div class="divider"></div>
+        <label class="url-label" for="finishUrl">Target URL</label>
+        <input id="finishUrl" placeholder="Paste the Wikipedia URL you reached">
+        <div class="url-actions">
+          <button id="pasteBtn" type="button" class="full">Paste URL</button>
+          <button id="finishBtn" type="button" class="primary full">I reached the target</button>
+        </div>
+        <p id="raceMessage" class="hint"></p>
+      </aside>
+      <section class="panel live">
+        <div class="live-head">
+          <div>
+            <div class="eyebrow">LIVE RACE</div>
+            <h2>Leaderboard</h2>
+          </div>
+          <span id="raceState" class="status">RACING</span>
+        </div>
+        <div id="leaderboard" class="leaderboard"></div>
+        <div class="tip">Tip: Open the start article in a new tab. Follow Wikipedia links only — no search box or external navigation.</div>
+      </section>
+    </div>
+  </section>
+
+  <section id="results" class="screen hidden">
+    <div class="results-card">
+      <div class="eyebrow">RACE COMPLETE</div>
+      <h1 id="winnerTitle">Race results</h1>
+      <p id="winnerSubtitle" class="muted"></p>
+      <div id="resultsList" class="results-list"></div>
+      <div class="result-actions">
+        <button id="rematchBtn" class="primary">Rematch</button>
+        <button id="leaveBtn">Leave room</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+</body>
+</html>
